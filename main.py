@@ -1,8 +1,10 @@
 import pygame
 import sys
-from Player_Info.player import Player 
-from ennemi import Ennemi
+import random 
 
+
+from AllDatas.player import Player
+from AllDatas.ennemi import Ennemi
 # Configuration de base
 pygame.init()
 ecran = pygame.display.set_mode((800, 600))
