@@ -1,18 +1,17 @@
-class Player:
-    def __init__(self, name, x, y):
-        # Informations de base
-        self.name = name
-        self.hp = 100
+import pygame
 
-        # Position sur l'écran
-        self.x = x
-        self.y = y
+class Player(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.Surface((50, 50))
+        self.image.fill((0, 255, 0))  # Vert
+        self.rect = self.image.get_rect()
+        self.rect.center = (400, 500)
+        self.vitesse = 5
 
-    def move(self, dx, dy):
-        """Déplace le joueur de dx et dy"""
-        self.x += dx
-        self.y += dy
-
-    def show_status(self):
-        """Affiche l'état du joueur pour le debug"""
-        print(f"Joueur: {self.name}  HP: {self.hp}  Position: ({self.x}, {self.y})")
+    def update(self):
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LEFT] and self.rect.left > 0:
+            self.rect.x -= self.vitesse
+        if keys[pygame.K_RIGHT] and self.rect.right < 800:
+            self.rect.x += self.vitesse
