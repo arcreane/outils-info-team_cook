@@ -1,23 +1,35 @@
 import pygame
-from Player_Info.player import Player  # Si tu as déplacé le fichier
+import sys
+from Player_Info.player import Player 
 from ennemi import Ennemi
 
-# Initialisation
+# Configuration de base
 pygame.init()
 ecran = pygame.display.set_mode((800, 600))
-joueur = Player()
-ennemis = [Ennemi(), Ennemi()]
+clock = pygame.time.Clock()
 
-#Game Loop
-continuer = True
-while continuer:
+tous_les_sprites = pygame.sprite.Group()
+groupe_ennemis = pygame.sprite.Group()
+
+# Création des objets
+joueur = Player()
+tous_les_sprites.add(joueur)
+
+for i in range(5):
+    e = Ennemi(i * 150, 50)
+    tous_les_sprites.add(e)
+    groupe_ennemis.add(e)
+
+# Boucle principale
+while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            continuer = False
+            pygame.quit()
+            sys.exit()
 
-    joueur.update()
-    ecran.fill((0, 0, 0))  # Fond noir
-    joueur.dessiner(ecran)
+    tous_les_sprites.update()
+    ecran.fill((30, 30, 30)) # Gris foncé
+    tous_les_sprites.draw(ecran)
+    
     pygame.display.flip()
-
-pygame.quit()
+    clock.tick(60) # Limite à 60 FPS
