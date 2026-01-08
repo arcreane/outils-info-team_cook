@@ -24,7 +24,7 @@ groupe_tirs = pygame.sprite.Group()
 joueur = Player()
 tous_les_sprites.add(joueur)
 
-#600 ennemis avec spawn aléatoires
+#60 ennemis avec spawn aléatoires
 for i in range(60):
     e = Ennemi(random.randint(0, 750), random.randint(-300, 0))
     tous_les_sprites.add(e)
