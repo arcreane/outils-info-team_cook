@@ -1,17 +1,12 @@
 import pygame
 import random
+from entities import Entity
 
-
-class Ennemi(pygame.sprite.Sprite):
+class Ennemi(Entity):
     def __init__(self, x, y):
-        super().__init__()
-        self.image = pygame.Surface((40, 40))
-        self.image.fill((255, 0, 0))
-        self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
-        self.vitesse = random.randint(1, 3)
-        self.vie = 1  # Un ennemi meurt en 1 coup
+        vitesse_aleatoire = random.randint(1, 3)
+        super().__init__(x, y, 40, 40, (255, 0, 0), 1)
+        self.vitesse = vitesse_aleatoire
 
     def update(self):
         self.rect.y += self.vitesse
