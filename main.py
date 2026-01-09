@@ -1,89 +1,111 @@
 import pygame, sys, random, os
 
-# On ajoute tous les sous-dossiers au chemin de recherche de Python (j'ai cherché sur Internet pour ça - Nicolas)
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'AllDatas')))
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'AllDatas/Entities')))
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'AllDatas/Weapons')))
+# --- 1. CONFIGURATION DES CHEMINS ---
+chemin_base = os.path.dirname(__file__)
+dossiers = ['AllDatas', 'AllDatas/Entities', 'AllDatas/Weapons']
+for dossier in dossiers:
+    sys.path.append(os.path.abspath(os.path.join(chemin_base, dossier)))
 
+# Imports des classes personnalisées
 from player import Player
 from ennemi import Ennemi
 from shoot import Shoot
 
-#création de la fenètre
+# --- 2. INITIALISATION ---
 pygame.init()
-ecran = pygame.display.set_mode((800, 600))
-pygame.display.set_caption("Shoot Them Up")
+LARGEUR_ECRAN = 800
+HAUTEUR_ECRAN = 600
+ecran = pygame.display.set_mode((LARGEUR_ECRAN, HAUTEUR_ECRAN))
+pygame.display.set_caption("Fireball Shoot 'em Up - Ultra Edition")
 clock = pygame.time.Clock()
+police = pygame.font.SysFont("Arial", 28)
 
-#sprites gérer les entités
+# --- 3. GROUPES DE SPRITES ---
 tous_les_sprites = pygame.sprite.Group()
 groupe_ennemis = pygame.sprite.Group()
 groupe_tirs = pygame.sprite.Group()
 
-
+# Création du joueur
 joueur = Player()
 tous_les_sprites.add(joueur)
 
-#60 ennemis avec spawn aléatoires
-for i in range(60):
-    e = Ennemi(random.randint(0, 750), random.randint(-300, 0))
+# --- 4. VARIABLES DE JEU ---
+score = 0
+last_shot_time = 0
+fire_delay = 200  # Vitesse de tir (ms)
+nombre_ennemis_max = 10  # Ajusté pour que ce soit jouable (60 c'est énorme !)
+
+# Création initiale des ennemis
+for i in range(nombre_ennemis_max):
+    e = Ennemi(random.randint(0, 750), random.randint(-400, -50))
     tous_les_sprites.add(e)
     groupe_ennemis.add(e)
 
-# Variables de jeu
-score = 0
-font = pygame.font.Font(None, 36)
-
-# Boucle principale du jeu
+# --- 5. BOUCLE DE JEU ---
 running = True
 while running:
+    temps_actuel = pygame.time.get_ticks()
+
+    # --- ÉVÉNEMENTS ---
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+
+    # --- LOGIQUE DE TIR (Maintien de la touche) ---
+    touches = pygame.key.get_pressed()
+    if touches[pygame.K_SPACE]:
+        if temps_actuel - last_shot_time > fire_delay:
             tir = Shoot(joueur.rect.centerx, joueur.rect.top)
             tous_les_sprites.add(tir)
             groupe_tirs.add(tir)
+            last_shot_time = temps_actuel
 
+    # --- MISE À JOUR ---
     tous_les_sprites.update()
 
-    # Gestion des collisions entre tirs et ennemis
-    collisions = pygame.sprite.groupcollide(groupe_ennemis, groupe_tirs, True, True)
-    for ennemi in collisions:
+    # --- COLLISIONS ---
+    # Tirs / Ennemis
+    hits = pygame.sprite.groupcollide(groupe_ennemis, groupe_tirs, True, True)
+    for hit in hits:
         score += 10
-        nouvel_ennemi = Ennemi(random.randint(0, 750), random.randint(-300, -40))
-        tous_les_sprites.add(nouvel_ennemi)
-        groupe_ennemis.add(nouvel_ennemi)
+        nouvel_e = Ennemi(random.randint(0, 750), random.randint(-150, -50))
+        tous_les_sprites.add(nouvel_e)
+        groupe_ennemis.add(nouvel_e)
 
-    # Gestion des collisions entre le joueur et les ennemis
+    # Ennemis / Joueur
     ennemis_touches = pygame.sprite.spritecollide(joueur, groupe_ennemis, True)
     if ennemis_touches:
         joueur.degat(1)
+        # On fait réapparaître les ennemis qui ont touché le joueur
         for _ in ennemis_touches:
-            nouvel_ennemi = Ennemi(random.randint(0, 750), random.randint(-300, -40))
-            tous_les_sprites.add(nouvel_ennemi)
-            groupe_ennemis.add(nouvel_ennemi)
+            nouvel_e = Ennemi(random.randint(0, 750), random.randint(-150, -50))
+            tous_les_sprites.add(nouvel_e)
+            groupe_ennemis.add(nouvel_e)
 
         if joueur.vie <= 0:
-            print(f"Game Over ! Score final : {score}")
+            print(f"GAME OVER ! Score final : {score}")
             running = False
 
-    ecran.fill((30, 30, 30))
+    # --- DESSIN ET RENDU ---
+    ecran.fill((30, 30, 30))  # Fond gris foncé
 
     tous_les_sprites.draw(ecran)
 
-    texte_score = font.render(f"Score: {score}", True, (255, 255, 255))
-    texte_vies = font.render(f"Vies: {joueur.vie}", True, (255, 255, 255))
-    ecran.blit(texte_score, (10, 10))
-    ecran.blit(texte_vies, (10, 50))
+    # Interface (HUD)
+    texte_score = police.render(f"SCORE: {score}", True, (255, 255, 255))
+    texte_vies = police.render(f"VIES: {joueur.vie}", True, (255, 100, 100))
+    ecran.blit(texte_score, (15, 15))
+    ecran.blit(texte_vies, (15, 50))
 
-    if joueur.invincible and joueur.temps_invincibilite % 10 < 5:
-        texte_invincible = font.render("INVINCIBLE!", True, (255, 255, 0))
-        ecran.blit(texte_invincible, (600, 550))
+    # Affichage "Invincible" si l'attribut existe dans ta classe Player
+    if hasattr(joueur, 'invincible') and joueur.invincible:
+        # Effet de clignotement
+        if (temps_actuel // 200) % 2 == 0:
+            texte_inv = police.render("INVINCIBLE !", True, (255, 255, 0))
+            ecran.blit(texte_inv, (630, 15))
 
     pygame.display.flip()
     clock.tick(60)
 
-#Quit Pygame
 pygame.quit()
 sys.exit()
