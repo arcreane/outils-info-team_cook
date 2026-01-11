@@ -13,6 +13,10 @@ class Player(Entity):
 
     def update(self):
         keys = pygame.key.get_pressed()
+        if (keys[pygame.K_LEFT] or keys[pygame.K_q]) and self.rect.left > 0:
+            self.rect.x -= self.vitesse
+        if (keys[pygame.K_RIGHT] or keys[pygame.K_d]) and self.rect.right < 800:
+            self.rect.x += self.vitesse
         if keys[pygame.K_LEFT] and self.rect.left > 0:
             self.rect.x -= self.vitesse
         if keys[pygame.K_RIGHT] and self.rect.right < 800:
