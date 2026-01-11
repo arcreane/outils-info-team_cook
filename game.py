@@ -44,7 +44,17 @@ class Game:
                 self.groupe_tirs.add(tir)
 
     def actualiser(self):
-        self.tous_les_sprites.update()
+        for ennemi in self.groupe_ennemis:
+            echappe = ennemi.update()
+            if echappe:
+                # Si l'ennemi sort, le joueur perd une vie (sans devenir forcément invincible)
+                self.joueur.vie -= 1
+                # On peut aussi appeler self.joueur.degat(1) si on veut qu'il devienne invincible
+
+        # On update le reste (joueur, tirs) normalement
+        self.groupe_tirs.update()
+        self.joueur.update()
+
         self.verifier_collisions()
 
         if self.joueur.vie <= 0:
