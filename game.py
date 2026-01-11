@@ -1,8 +1,8 @@
 import pygame
 import random
 from settings import *
-from player import Player
-from ennemi import Ennemi
+from AllDatas.Entities.player import Player
+from AllDatas.Entities.ennemi import Ennemi
 
 
 class Game:

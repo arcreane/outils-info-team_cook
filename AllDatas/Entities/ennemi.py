@@ -1,6 +1,6 @@
 import pygame
 import random
-from entities import Entity
+from .entities import Entity
 from settings import HAUTEUR_ECRAN, LARGEUR_ECRAN # Importation pour éviter les valeurs en dur
 
 class Ennemi(Entity):
