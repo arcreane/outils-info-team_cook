@@ -33,7 +33,7 @@ Règle de contribution:
 -Respect des droits : N'utilisez que des images ou des sons libres de droits et citez vos sources dans votre proposition.
 
 # Branch 
-main (la branche principale),PresentationTom,nepastoucherSimon,AhmedPresentation3, SimonPrésentation, PresentationNoah,PresentationNico,AhmedPresentation
+main (la branche principale),   PresentationTom,  nepastoucherSimon,  AhmedPresentation3,  SimonPrésentation,   PresentationNoah,  PresentationNico,  AhmedPresentation
 # main.py
 Fichier principal du projet. Permet le lancement du jeu, importe le module "pygame" et le fichier python "settings" .Avec "sys" et "os" importés on peut créer une liste "dossiers" et l'ajouter à l'exécution du projet
 Importer game to Game. Puis créer la fonction main pour créer une fenêtre et ajouter un temps. "vitess_actuelle" =60 fps ou égale 20 si touche " maj" pressée.
