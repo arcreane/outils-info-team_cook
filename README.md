@@ -32,6 +32,16 @@ Règle de contribution:
 
 -Respect des droits : N'utilisez que des images ou des sons libres de droits et citez vos sources dans votre proposition.
 
+# Prérequis
+Installer: pygame, l'ensemble des fichiers.py, le dossier *****AllDatas****. Il faut bien configurer son IDE.
+# Lancement 
+***ATTENTION** pour lancer le jeu vous devez lancer fichier ***main.py**.
+## Les touches
+Il y a trois touches: la touche **espace** pour tirer, la touche **q** pour aller à gauche et la touche **d** pour aller à droite. **Les flèches gauche et droite** sont aussi utilisables pour la direction.
+
+## Règles de contribution
+Pour contriuber au projet, veuillez prendre contact avec l'un des prinncipaux collaborateurs pour tout "push" à autoriser.
+ 
 # Branch 
 main (la branche principale),   PresentationTom,  nepastoucherSimon,  AhmedPresentation3,  SimonPrésentation,   PresentationNoah,  PresentationNico,  AhmedPresentation
 <img width="1295" height="673" alt="image" src="https://github.com/user-attachments/assets/2e45171b-fb83-436d-a577-f1b1a8a3c33b" />
