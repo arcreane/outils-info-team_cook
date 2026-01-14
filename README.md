@@ -70,7 +70,7 @@ Si la vie du boss mort , "groupe_tird_boss.empty()" nettoie l'écran, la fenêtr
 Si joueur mort alors la fenêtre se ferme par "self.running= false"
 
 ### Power-ups et collisions
-Il y a des objets qui apparaissent de couleur orange, si le joueur en mange un il débloque une nouvelle arme qui dépend du dictionnaire "m" composer de chaîne de characters.
+Il y a des objets qui apparaissent de couleur orange, si le joueur en mange un il débloque une nouvelle arme qui dépend du dictionnaire "m" composer de chaîne de caractères.
 
 ### tirs contre Ennemis
 Ici si pas de boss , il y a des ennemis.  Pour chaque ennemi en collision avec un tir joueur, le score augmente de 10 . Les ennemis prennent 1 dégât. Le déplacement est aléatoire
