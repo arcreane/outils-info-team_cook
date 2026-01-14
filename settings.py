@@ -10,4 +10,4 @@ ROUGE_VIE = (255, 100, 100)
 JAUNE_INV = (255, 255, 0)
 
 # Paramètres de jeu
-NB_ENNEMIS_MAX = 10
+NB_ENNEMIS_MAX = 3
