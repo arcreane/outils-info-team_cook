@@ -34,6 +34,8 @@ Règle de contribution:
 
 # Branch 
 main (la branche principale),   PresentationTom,  nepastoucherSimon,  AhmedPresentation3,  SimonPrésentation,   PresentationNoah,  PresentationNico,  AhmedPresentation
+<img width="1295" height="673" alt="image" src="https://github.com/user-attachments/assets/2e45171b-fb83-436d-a577-f1b1a8a3c33b" />
+
 # main.py
 Fichier principal du projet. Permet le lancement du jeu, importe le module "pygame" et le fichier python "settings" .Avec "sys" et "os" importés on peut créer une liste "dossiers" et l'ajouter à l'exécution du projet
 Importer game to Game. Puis créer la fonction main pour créer une fenêtre et ajouter un temps. "vitess_actuelle" =60 fps ou égale 20 si touche " maj" pressée.
