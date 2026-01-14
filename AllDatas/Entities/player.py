@@ -1,7 +1,8 @@
 import pygame
 import os
+import settings  # Import simple car le chemin est géré par main.py
+
 from .entities import Entity
-from settings import LARGEUR_ECRAN  # Importation pour les limites de l'écran
 
 
 class Shoot(Entity):
@@ -18,47 +19,38 @@ class Shoot(Entity):
 
 class Player(Entity):
     def __init__(self):
-        # Initialisation de base
-        super().__init__(375, 500, 50, 50, (0, 255, 0), 3)
+        self.taille = 80
+        super().__init__(settings.LARGEUR_ECRAN // 2 - self.taille // 2, 500, self.taille, self.taille, (0, 255, 0), 3)
 
-        # --- Chargement du Sprite ---
-        # On remonte d'un dossier (..) pour aller dans Assets
         chemin_actuel = os.path.dirname(__file__)
         chemin_image = os.path.join(chemin_actuel, "..", "Assets", "vaisseau.png")
 
         try:
-            # .convert_alpha() préserve la transparence du PNG
             img_originale = pygame.image.load(chemin_image).convert_alpha()
-            # On redimensionne l'image pour qu'elle corresponde aux 50x50 de l'Entity
-            self.image = pygame.transform.scale(img_originale, (50, 50))
-        except Exception as e:
-            print(f"Erreur lors du chargement de l'image : {e}")
+            self.image = pygame.transform.scale(img_originale, (self.taille, self.taille))
+        except Exception:
+            pass
 
         self.vitesse = 5
         self.invincible = False
         self.temps_invincibilite = 0
-
-        # Variables nécessaires pour le tir (utilisées par game.py)
         self.last_shot_time = 0
         self.fire_delay = 200
 
     def update(self):
         keys = pygame.key.get_pressed()
 
-        # Déplacements avec limites d'écran
         if (keys[pygame.K_LEFT] or keys[pygame.K_q]) and self.rect.left > 0:
             self.rect.x -= self.vitesse
-        if (keys[pygame.K_RIGHT] or keys[pygame.K_d]) and self.rect.right < LARGEUR_ECRAN:
+        if (keys[pygame.K_RIGHT] or keys[pygame.K_d]) and self.rect.right < settings.LARGEUR_ECRAN:
             self.rect.x += self.vitesse
 
-        # Gestion de l'invincibilité
         if self.invincible:
             self.temps_invincibilite -= 1
             if self.temps_invincibilite <= 0:
                 self.invincible = False
 
     def shoot(self, current_time):
-        """Méthode nécessaire pour le fonctionnement de game.py"""
         if current_time - self.last_shot_time > self.fire_delay:
             self.last_shot_time = current_time
             return Shoot(self.rect.centerx, self.rect.top)
