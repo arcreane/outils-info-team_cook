@@ -1,8 +1,13 @@
+from pathlib import Path
+
 import pygame
 import os
-import settings  # Import simple car le chemin est géré par main.py
+import sys
 
-from .entities import Entity
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))# Import simple car le chemin est géré par main.py
+
+
+from entities import Entity
 
 
 class Shoot(Entity):
