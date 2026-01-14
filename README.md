@@ -142,9 +142,8 @@ On définit les tirs tirs.
 # \AllDatas\Weapons\weapon.py 
 Fichier python permettant de créer des pouvoirs, WeaponManager permet de gérer l'arme du joeur et les délais, Chaque tir est ajouté aux groupes all_sprites et bullets, spawn_power génère un bonus.
 
-# Option non terminée
+# Options non terminées
 Les bonus et le scroll ne sont pas terminés.
 
-# La priorité dans le développement
-Le développement d'un joueur sur plateforme qui doit esquiver des ennemis.
+
 
