@@ -3,26 +3,28 @@ import random
 from settings import *
 from AllDatas.Entities.player import Player
 from AllDatas.Entities.ennemi import Ennemi
-
+from AllDatas.Entities.boss import Boss
+from AllDatas.Weapons.weapon import WeaponManager, spawn_power
 
 class Game:
     def __init__(self, ecran):
-        self.ecran = ecran
-        self.police = pygame.font.SysFont("Arial", 28)
-        self.score = 0
         self.running = True
+        self.ecran = ecran
+        self.score = 0
+        self.boss_mode = False
+        self.boss = None
+        self.weapon_manager = WeaponManager()
+        self.police = pygame.font.SysFont("Arial", 28)
 
-        # Groupes
         self.tous_les_sprites = pygame.sprite.Group()
         self.groupe_ennemis = pygame.sprite.Group()
         self.groupe_tirs = pygame.sprite.Group()
+        self.groupe_tirs_boss = pygame.sprite.Group()
+        self.groupe_powers = pygame.sprite.Group()
 
-        # Joueur
         self.joueur = Player()
         self.tous_les_sprites.add(self.joueur)
-
-        # Spawn initial
-        self.spawn_ennemis(NB_ENNEMIS_MAX)
+        self.spawn_ennemis(NB_ENNEMIS_MAX) # Méthode maintenant définie
 
     def spawn_ennemis(self, nombre):
         for _ in range(nombre):
@@ -32,47 +34,44 @@ class Game:
 
     def gerer_evenements(self):
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                self.running = False
-
-        # Logique de tir
-        touches = pygame.key.get_pressed()
-        if touches[pygame.K_SPACE]:
-            tir = self.joueur.shoot(pygame.time.get_ticks())
-            if tir:
-                self.tous_les_sprites.add(tir)
-                self.groupe_tirs.add(tir)
+            if event.type == pygame.QUIT: self.running = False
+        if pygame.key.get_pressed()[pygame.K_SPACE]:
+            self.weapon_manager.try_shoot(self.joueur, self.tous_les_sprites, self.groupe_tirs)
 
     def actualiser(self):
-        for ennemi in self.groupe_ennemis:
-            echappe = ennemi.update()
-            if echappe:
-                # Si l'ennemi sort, le joueur perd une vie (sans devenir forcément invincible)
-                self.joueur.vie -= 1
-                # On peut aussi appeler self.joueur.degat(1) si on veut qu'il devienne invincible
+        if self.score >= 100 and not self.boss_mode:
+            self.boss_mode = True
+            for e in self.groupe_ennemis: e.kill()
+            self.boss = Boss(); self.tous_les_sprites.add(self.boss)
 
-        # On update le reste (joueur, tirs) normalement
-        self.groupe_tirs.update()
-        self.joueur.update()
+        self.tous_les_sprites.update()
+        if self.boss_mode and self.boss:
+            tirs = self.boss.shoot(pygame.time.get_ticks())
+            for t in tirs: self.groupe_tirs_boss.add(t); self.tous_les_sprites.add(t)
 
         self.verifier_collisions()
-
-        if self.joueur.vie <= 0:
-            print(f"GAME OVER ! Score : {self.score}")
-            self.running = False
+        if self.joueur.vie <= 0: self.running = False
 
     def verifier_collisions(self):
-        # Tirs contre Ennemis
-        hits = pygame.sprite.groupcollide(self.groupe_ennemis, self.groupe_tirs, True, True)
-        for _ in hits:
-            self.score += 10
-            self.spawn_ennemis(1)
+        # Power-ups
+        hits = pygame.sprite.spritecollide(self.joueur, self.groupe_powers, True)
+        for p in hits:
+            m = {"rapid_fire": "rapid", "triple": "triple", "big_fire": "big"}
+            self.weapon_manager.set_weapon(m[p.power_type])
 
-        # Joueur contre Ennemis
-        touches = pygame.sprite.spritecollide(self.joueur, self.groupe_ennemis, True)
-        if touches:
+        # Tirs joueur vs Ennemis/Boss
+        if not self.boss_mode:
+            hits = pygame.sprite.groupcollide(self.groupe_ennemis, self.groupe_tirs, True, True)
+            for _ in hits:
+                self.score += 10; self.spawn_ennemis(1)
+                if random.random() < 0.2: spawn_power(self.groupe_powers, self.tous_les_sprites)
+        elif self.boss:
+            if pygame.sprite.spritecollide(self.boss, self.groupe_tirs, True):
+                self.boss.degat(1)
+
+        # Tirs Boss vs Joueur
+        if pygame.sprite.spritecollide(self.joueur, self.groupe_tirs_boss, True):
             self.joueur.degat(1)
-            self.spawn_ennemis(len(touches))
 
     def dessiner(self):
         self.ecran.fill(COULEUR_FOND)
@@ -81,11 +80,7 @@ class Game:
         pygame.display.flip()
 
     def afficher_hud(self):
-        txt_score = self.police.render(f"SCORE: {self.score}", True, BLANC)
-        txt_vies = self.police.render(f"VIES: {self.joueur.vie}", True, ROUGE_VIE)
-        self.ecran.blit(txt_score, (15, 15))
-        self.ecran.blit(txt_vies, (15, 50))
-
-        if self.joueur.invincible and (pygame.time.get_ticks() // 200) % 2 == 0:
-            txt_inv = self.police.render("INVINCIBLE !", True, JAUNE_INV)
-            self.ecran.blit(txt_inv, (630, 15))
+        s_txt = self.police.render(f"SCORE: {self.score} | ARME: {self.weapon_manager.weapon}", True, BLANC)
+        self.ecran.blit(s_txt, (15, 15))
+        v_txt = self.police.render(f"VIES: {self.joueur.vie}", True, ROUGE_VIE)
+        self.ecran.blit(v_txt, (15, 50))

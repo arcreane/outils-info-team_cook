@@ -1,7 +1,7 @@
 import pygame
 import random
 from .entities import Entity
-from settings import HAUTEUR_ECRAN, LARGEUR_ECRAN # Importation pour éviter les valeurs en dur
+from settings import HAUTEUR_ECRAN, LARGEUR_ECRAN
 
 class Ennemi(Entity):
     def __init__(self, x, y):
@@ -11,10 +11,9 @@ class Ennemi(Entity):
 
     def update(self):
         self.rect.y += self.vitesse
-        # Si l'ennemi sort de l'écran par le bas
         if self.rect.top > HAUTEUR_ECRAN:
             self.respawn()
-            return True # Signal qu'un ennemi s'est échappé
+            return True
         return False
 
     def respawn(self):

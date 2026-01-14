@@ -5,11 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8c85d3f5-eea5-4a90-8faf-d167c3e44ac2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/outils-info-team_cook.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/outils-info-team_cook.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AllDatas/Entities/boss.py" beforeDir="false" afterPath="$PROJECT_DIR$/AllDatas/Entities/boss.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AllDatas/Entities/ennemi.py" beforeDir="false" afterPath="$PROJECT_DIR$/AllDatas/Entities/ennemi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AllDatas/Entities/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/AllDatas/Entities/player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AllDatas/Weapons/weapon.py" beforeDir="false" afterPath="$PROJECT_DIR$/AllDatas/Weapons/weapon.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +53,7 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "ai.playground.ignore.import.keys.banner.in.settings": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "PresentationNico",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
     "last_opened_file_path": "C:/Users/Nicolas/Documents/Test_Projet/outils-info-team_cook/AllDatas",
