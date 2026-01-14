@@ -33,9 +33,9 @@ Règle de contribution:
 -Respect des droits : N'utilisez que des images ou des sons libres de droits et citez vos sources dans votre proposition.
 
 # Prérequis
-Installer: pygame, l'ensemble des fichiers.py, le dossier *****AllDatas****. Il faut bien configurer son IDE.
+Installer: pygame, l'ensemble des fichiers.py, le dossier ****AllDatas****. Il faut bien configurer son IDE.
 # Lancement 
-***ATTENTION** pour lancer le jeu vous devez lancer fichier ***main.py**.
+**ATTENTION** pour lancer le jeu vous devez lancer fichier ***main.py**.
 ## Les touches
 Il y a trois touches: la touche **espace** pour tirer, la touche **q** pour aller à gauche et la touche **d** pour aller à droite. **Les flèches gauche et droite** sont aussi utilisables pour la direction.
 
@@ -130,7 +130,7 @@ On importe pygame et depuis "entities" on importe Entity. Dans la classe Boss, a
 
 La classe "BossShoot", la fonction __init__ change les caractéristques du boss. Et la fonction "upadte  est codé pour que lorsque le boss a  pris plus de 600 de dégâts, il meurt par "self.kill()".
 
-# \AllDatas\Entities\boss.py 
+# \AllDatas\Entities\boss.py , 
 Importation de pygame, os et "d'Entity" de "entities" et LARGEUR_ECRAN" de settings.
 Dans la class Shoot, on définit de la même façon dans __init__ que pour boss.py au niveau structure.
 Dans la fonction "update" on code pour la vie du joueur , si c'est inférieur à 0 alors le joueur meurt, "self.kill()".
@@ -138,3 +138,13 @@ Dans la classe "Player". On définit le jouer à une position de base sur la fen
 On charge le fichier sprite par "chemin_image".
 Dans le bloc try on charge l'image ,on stock l'erreur dans "e" on imprime notre erreur avec un message.
 On définit les tirs tirs.
+
+# \AllDatas\Weapons\weapon.py 
+Fichier python permettant de créer des pouvoirs, WeaponManager permet de gérer l'arme du joeur et les délais, Chaque tir est ajouté aux groupes all_sprites et bullets, spawn_power génère un bonus.
+
+# Option non terminée
+Les bonus et le scroll ne sont pas terminés.
+
+# La priorité dans le développement
+Le développement d'un joueur sur plateforme qui doit esquiver des ennemis.
+
