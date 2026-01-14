@@ -17,5 +17,5 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ASSETS_DIR = os.path.join(BASE_DIR, "AllDatas", "Assets")
 IMAGE_VAISSEAU = os.path.join(ASSETS_DIR, "vaisseau.png")
 
-# Paramètres de jeu
+# Nombres de mobs max sur la page
 NB_ENNEMIS_MAX = 3
