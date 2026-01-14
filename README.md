@@ -33,9 +33,9 @@ Règle de contribution:
 -Respect des droits : N'utilisez que des images ou des sons libres de droits et citez vos sources dans votre proposition.
 
 # Prérequis
-Installer: pygame, l'ensemble des fichiers.py, le dossier ****AllDatas****. Il faut bien configurer son IDE.
+Installer: pygame, l'ensemble des fichiers ".py", le dossier ****AllDatas****. Il faut bien configurer son IDE.
 # Lancement 
-**ATTENTION** pour lancer le jeu vous devez lancer fichier ***main.py**.
+**ATTENTION** pour lancer le jeu vous devez lancer fichier **main.py**.
 ## Les touches
 Il y a trois touches: la touche **espace** pour tirer, la touche **q** pour aller à gauche et la touche **d** pour aller à droite. **Les flèches gauche et droite** sont aussi utilisables pour la direction.
 
@@ -122,7 +122,7 @@ LA fonction "degat" est définie avec un paramètre, si la vie est égale à -1 
 
 # \AllDatas\Entities\ennemi.py 
  Le module random est importé et les fonctions d'entities et de settings sont importées.
- Un classe "Ennemi" est crée avec un paramètre Entity. On crée trois fonctions. La première __init__ avec deux paramètres "x" et "y" dont on définit une vitesse aléatoire. Puis la deuxième fonction "update" qui gère le sorti de l'ennemi qui va revenir s'il sort de l'écran. 
+ Un classe "Ennemi" est crée avec un paramètre Entity. On crée trois fonctions. La première __init__ avec deux paramètres "x" et "y" dont on définit une vitesse aléatoire. Puis la deuxième fonction "update" qui gère la sortie de l'ennemi qui va revenir s'il sort de l'écran. 
  Puis une troisième fonction "respawn" qui gère la réapparition de des objets.
 
 # \AllDatas\Entities\boss.py 
