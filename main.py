@@ -3,7 +3,8 @@ from settings import *
 
 # Gestion des chemins pour les modules personnalisés
 chemin_base = os.path.dirname(__file__)
-dossiers = ['AllDatas', 'AllDatas/Entities', 'AllDatas/Weapons']
+# Ajoutez '' pour inclure le dossier racine où se trouve settings.py
+dossiers = ['', 'AllDatas', 'AllDatas/Entities', 'AllDatas/Weapons', 'AllDatas/Assets']
 for dossier in dossiers:
     sys.path.append(os.path.abspath(os.path.join(chemin_base, dossier)))
 
