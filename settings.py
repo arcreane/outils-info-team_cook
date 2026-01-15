@@ -12,15 +12,6 @@ ROUGE_VIE = (255, 100, 100)
 JAUNE_INV = (255, 255, 0)
 
 # Chemins des assets
-<<<<<<< HEAD
-# On définit le chemin vers le dossier Assets
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-ASSETS_DIR = os.path.join(BASE_DIR, "AllDatas", "Assets")
-IMAGE_VAISSEAU = os.path.join(ASSETS_DIR, "vaisseau.png")
-
-# Nombres de mobs max sur la page
-NB_ENNEMIS_MAX = 3
-=======
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ASSETS_DIR = os.path.join(BASE_DIR, "AllDatas", "Assets")
 IMAGE_VAISSEAU = os.path.join(ASSETS_DIR, "vaisseau.png")
@@ -28,4 +19,3 @@ IMAGE_FOND = os.path.join(ASSETS_DIR, "fond.jpg")
 
 # Paramètres de jeu
 NB_ENNEMIS_MAX = 3
->>>>>>> PresentaionTom
