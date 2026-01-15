@@ -1,21 +1,14 @@
-<<<<<<< HEAD
-import pygame
-import os
-import settings  # Import simple car le chemin est géré par main.py
-
-from .entities import Entity
-=======
 from pathlib import Path
 
 import pygame
 import os
 import sys
+import settings
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))# Import simple car le chemin est géré par main.py
 
 
-from entities import Entity
->>>>>>> PresentaionTom
+from .entities import Entity
 
 
 class Shoot(Entity):
@@ -73,8 +66,4 @@ class Player(Entity):
         if not self.invincible:
             self.vie -= valeur
             self.invincible = True
-<<<<<<< HEAD
             self.temps_invincibilite = 60
-=======
-            self.temps_invincibilite = 60
->>>>>>> PresentaionTom
